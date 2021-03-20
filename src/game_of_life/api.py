@@ -24,3 +24,6 @@ class GameOfLife(GOLAbstract):
             ng.set_point(p, self._rules.calculate(self._field, p))
         self._field = ng
         return self._field
+
+    def init_field(self, x: int, y: int, start_generation: Field) -> None:
+        self._field = start_generation

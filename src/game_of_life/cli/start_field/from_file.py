@@ -1,7 +1,7 @@
 from typing import List
 
-from ...game_of_life.field import Field
-from ...game_of_life.point import Point
+from ...gol.field import Field
+from ...gol.point import Point
 
 
 def input_field(file: str, char_false: str, char_true: str) -> Field:

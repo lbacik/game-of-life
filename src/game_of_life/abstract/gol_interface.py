@@ -1,8 +1,8 @@
 
 from abc import ABC
 from abc import abstractmethod
-from ..game_of_life.field import Field
-from ..game_of_life.point import Point
+from ..gol.field import Field
+from ..gol.point import Point
 
 
 class GameOfLife(ABC):

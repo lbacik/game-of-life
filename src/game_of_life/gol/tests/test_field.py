@@ -1,7 +1,7 @@
 
 import pytest
-from src.game_of_life.point import Point
-from src.game_of_life.field import Field
+from src.game_of_life.gol.point import Point
+from src.game_of_life.gol.field import Field
 
 
 @pytest.fixture

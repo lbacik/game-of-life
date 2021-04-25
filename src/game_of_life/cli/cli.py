@@ -1,11 +1,11 @@
 
 from .arguments import parse, Arguments
-from ..game_of_life.arguments import Arguments as GolArguments
+from ..gol.arguments import Arguments as GolArguments
 from .start_field.only_string import input_field as field_from_string
 from .start_field.string_with_width import input_field as field_from_string_with_width
 from .start_field.from_file import input_field as field_from_file
-from ..game_of_life.factory import Factory
-from ..game_of_life.field import Field
+from ..gol.factory import Factory
+from ..gol.field import Field
 
 
 def create_gol_arguments(args: object) -> GolArguments:

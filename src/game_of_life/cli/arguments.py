@@ -10,6 +10,9 @@ class Arguments:
     file_false: str = '0'
     file_true: str = '1'
     generations: int = 1
+    interactive: bool = False
+    clear: bool = False
+    quiet: bool = False
 
 
 def parse() -> object:
@@ -23,5 +26,8 @@ def parse() -> object:
     parser.add_argument('--file-true', nargs='?', default=Arguments.file_true)
     parser.add_argument('-w', '--width', nargs='?', default=Arguments.width, type=int)
     parser.add_argument('-g', '--generations', nargs='?', default=Arguments.generations, type=int)
+    parser.add_argument('-i', '--interactive', action='store_const', const=True)
+    parser.add_argument('-c', '--clear', action='store_const', const=True)
+    parser.add_argument('-q', '--quiet', action='store_const', const=True)
 
     return parser.parse_args(namespace=Arguments)

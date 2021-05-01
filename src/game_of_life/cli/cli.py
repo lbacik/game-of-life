@@ -1,5 +1,9 @@
+import os
 
 from .arguments import parse, Arguments
+from ..colony.colony import Colony
+from ..colony.colony_state import ColonyState
+from ..colony.exception.colony_exception import ColonyException
 from ..gol.arguments import Arguments as GolArguments
 from .start_field.only_string import input_field as field_from_string
 from .start_field.string_with_width import input_field as field_from_string_with_width
@@ -22,7 +26,8 @@ def create_gol_arguments(args: object) -> GolArguments:
     return GolArguments(start_generation, width)
 
 
-def show_generation(generation: Field) -> None:
+def show_generation(generation_number: int, generation: Field) -> None:
+    print(f" >> gen: {generation_number}")
     for point in generation:
         value = generation.state_point(point)
         if value:
@@ -42,14 +47,26 @@ args = parse()
 
 gol_arguments = create_gol_arguments(args)
 gol = Factory.create_from_arguments(gol_arguments)
+colony = Colony(gol)
 
-for i in range(0, args.generations + 1):
+try:
+    for i in range(0, args.generations + 1):
 
-    print(f" >> gen: {i}")
-    show_generation(gol.field())
-    print(' = = =')
+        if args.clear:
+            os.system('clear')
 
-    input("Press Enter to continue...")
+        if args.quiet:
+            print('.', end='')
+        else:
+            show_generation(i, colony.field())
 
-    if i < args.generations:
-        gol.next_generation()
+        if args.interactive:
+            input("Press Enter to continue...")
+
+        if i < args.generations:
+                colony.next_generation()
+
+except ColonyException as exception:
+    print()
+    print(exception.message)
+    print(f"generation: {i}")

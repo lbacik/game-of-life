@@ -1,7 +1,7 @@
 
 import pytest
-from src.game_of_life.gol.api import GameOfLife
-from src.game_of_life.gol.rules.conway import ConwayRules
+from ..api import GameOfLife
+from ..rules.conway import ConwayRules
 
 @pytest.fixture
 def game_of_life_api():

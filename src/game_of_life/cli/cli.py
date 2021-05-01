@@ -43,30 +43,36 @@ def show_generation(generation_number: int, generation: Field) -> None:
             print(char, end='')
 
 
-args = parse()
+def run():
 
-gol_arguments = create_gol_arguments(args)
-gol = Factory.create_from_arguments(gol_arguments)
-colony = Colony(gol)
+    args = parse()
 
-try:
-    for i in range(0, args.generations + 1):
+    gol_arguments = create_gol_arguments(args)
+    gol = Factory.create_from_arguments(gol_arguments)
+    colony = Colony(gol)
 
-        if args.clear:
-            os.system('clear')
+    try:
+        for i in range(0, args.generations + 1):
 
-        if args.quiet:
-            print('.', end='')
-        else:
-            show_generation(i, colony.field())
+            if args.clear:
+                os.system('clear')
 
-        if args.interactive:
-            input("Press Enter to continue...")
+            if args.quiet:
+                print('.', end='')
+            else:
+                show_generation(i, colony.field())
 
-        if i < args.generations:
-                colony.next_generation()
+            if args.interactive:
+                input("Press Enter to continue...")
 
-except ColonyException as exception:
-    print()
-    print(exception.message)
-    print(f"generation: {i}")
+            if i < args.generations:
+                    colony.next_generation()
+
+    except ColonyException as exception:
+        print()
+        print(exception.message)
+        print(f"generation: {i}")
+
+
+if __name__ == '__main__':
+    run()

@@ -1,7 +1,7 @@
 
 from flask import Flask, jsonify, request
 from flask_restx import Api, Resource, fields, reqparse
-
+from flask_cors import CORS
 from game_of_life.cli.arguments import Arguments
 from game_of_life.cli.cli import create_gol_arguments
 from game_of_life.colony.colony import Colony
@@ -9,6 +9,7 @@ from game_of_life.colony.exception.colony_exception import ColonyException
 from game_of_life.gol.factory import Factory
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app=app, version="0.1")
 name_space = api.namespace('', description='GoL Api')
 
@@ -33,11 +34,13 @@ class ColonyEntity:
         self.id = colony_id
 
     def json(self, page: int, limit: int):
+        start = (page - 1) * limit
+        stop = start + limit
         return {
             'id': self.id,
             'generations': len(self.colony._field_list),
             'status': self.colony._state,
-            'history': [field._field for field in self.colony._field_list[(page-1)*limit:(page-1)+limit]],
+            'history': [field._field for field in self.colony._field_list[start:stop]],
             'history_page': page,
             'history_limit': limit
         }
